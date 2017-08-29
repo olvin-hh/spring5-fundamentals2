@@ -29,10 +29,14 @@ class CountryDaoImplTest {
     private CountryDao countryDao;
 
     @Test
-    void testSaveCountry2() {
+    void testSaveCountry() {
         countryDao.save(exampleCountry);
-        assertThat(exampleCountry,
-                is(countryDao.getAllCountries().findFirst()));
+        
+        Country country = countryDao.getAllCountries()
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException(""));
+
+        assertThat(exampleCountry, is(country));
         countryDao.remove(exampleCountry);
     }
 
